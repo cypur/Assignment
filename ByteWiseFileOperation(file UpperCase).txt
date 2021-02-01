@@ -1,0 +1,26 @@
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+public class ByteWiseFileOpeation {
+
+	public static void main(String[] args)throws Exception {
+
+		FileInputStream fis = new FileInputStream("C:\\Users\\abhis\\Documents\\java programs\\abc.txt");
+		FileOutputStream fos = new FileOutputStream("C:\\Users\\abhis\\Documents\\java programs\\abhi.txt");
+		char CharCounter=0;
+		int ch;
+		while((ch=fis.read())!=-1)
+		{
+		   if(Character.isLowerCase(ch))
+		   {
+			   ch=Character.toUpperCase(ch);
+		   }
+		   fos.write(ch);
+		}
+
+		fis.close();
+		fos.close();
+		System.out.println("File copied...");
+	}
+
+
+	}

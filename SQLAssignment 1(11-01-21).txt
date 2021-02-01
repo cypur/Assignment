@@ -1,0 +1,148 @@
+
+11/01/2021
+
+Select Clause with Where clause 
+
+1) Display details of jobs where the minimum salary is greater than 10000.
+
+Ans->Select * from jobs where min_salary > 10000;
+
+2) Display the first name and join date of the employees who joined between 2002 and 2005.
+
+Ans-> Select first_name,hire_date from employees where year(hire_date) between 2002 and 2005;
+
+3) Display first name and join date of the employees who is either IT Programmer or Sales Man.
+
+Ans->Select first_name,hire_date from employees where job_id in ('IT_PROG', 'SA_MAN');
+
+4) Display first name, salary, commission pct, and hire date for employees with salary less than 10000.
+
+Ans->Select first_name,salary,commission_pct,hire_date from employees where salary < 10000;
+
+
+5) Display job Title, the difference between minimum and maximum salaries for jobs with max salary in the range 10000 to 20000.
+
+Ans->Select job_title,max_salary - min_salary difference from jobs where max_salary between 10000 and 20000;
+
+6) Display employees where the first name or last name starts with S.
+
+Ans->Select first_name,last_name from employees where first_name Like 'S%' or last_name like 'S%';
+
+7) Display details of jobs in the descending order of the title.
+
+Ans->Select * from jobs order by job_title desc;
+
+8) Display employees who joined in the month of May.
+
+Ans->Select * from employees where month(hire_date) = '05';
+
+9) Display details of the employees where commission percentage is null and salary in the range 5000 to 10000 and department is 30.
+
+Ans->select * from employees where commission_pct is null and salary between 5000 and 10000 and department_id = 30;
+
+Join 
+
+1). Display job title, employee ID, number of days between ending date and starting date for all jobs in department 30 from job history.
+
+Ans->Select employee_id,job_title,end_date-start_date days from job_history natural join jobs where department_id=90;
+
+2) Display department name and manager first name.
+
+Ans->Select d.department_id, d.department_name, d.manager_id, e.first_name from departments d inner join employees e on (d.manager_id = e.employee_id);
+
+3) Display department name, manager name, and city.
+
+Ans->Select d.department_name, e.first_name, l.city from departments d join employees e on (d.manager_id = e.employee_id) join locations l using (location_id);
+
+4) Display country name, city, and department name.
+
+Ans->Select country_name,city, department_name from countries join locations using (country_id) join departments USING (location_id);
+
+5) Display employee name and country in which he is working.
+
+Ans->Select concat(first_name,' ',last_name) as Employee_name,employee_id, country_name from employees join departments using(department_id) join locations using( location_id) join countries using ( country_id);
+
+
+Functions 
+
+1. Display employees who joined in the month of May.
+
+Ans->Select * from employees where month(hire_date) = '05';
+
+2. Display first name, salary, and round the salary to thousands.
+
+Ans->Select first_name,salary,round(salary, -3) from employees;
+
+3. Display first name and date of first salary of the employees.
+
+Ans->select first_name,hire_date from employees;
+
+4. Display first name and experience of the employees.
+
+Ans->SELECT FIRST_NAME, SYSDATE(), HIRE_DATE, DATEDIFF( SYSDATE(), hire_date )/365
+  FROM employees;
+
+5. Display the length of first name for employees where last name contain character ‘b’ after 3rd position.
+
+Ans->Select first_name,last_name FROM employees where INSTR(last_name,'b') > 3;
+
+6. Display first name in upper case and email address in lower case for employees where the first name and email address are same irrespective of the case.
+
+Ans->Select upper(first_name),lower(email) from employees where upper(first_name) = lower(email);
+
+7. Display employees who joined in the 1996.
+
+Ans->Select * from employees where year(hire_date) = "1996"; 
+
+8. Display the number of days between system date and 1st January 1995.
+
+Ans->Select sysdate - to-date('01-jan-1995') from employees;
+
+9. Display how many employees joined in each month of the current year.
+
+Ans->Select month(hire_date),count(*) from employees where month(hire_date) = month(sysdate);
+
+MySQL Aggregate function 
+
+1. Display employee ID and the date on which he ended his previous job.
+
+Ans->Select employee_id,max(end_date) from job_history group by employee_id; 
+
+2. Display number of employees joined after 15th of the month.
+
+Ans->Select count(*) from employees where month(hire_date) > 15;
+
+select with Group by 
+
+3. Display the country ID and number of cities we have in the country.
+
+Ans->Select country_id,count(*) from locations group by country_id;
+
+4. Display average salary of employees in each department who have commission percentage.
+
+Ans->Select department_id,avg(salary) from employees where commission_pct is not null group by department_id;
+
+5. Display job ID, number of employees, sum of salary, and difference between highest salary and lowest salary of the employees of the job.
+
+Ans->Selct job_id,count(*),sum(salary),max(salary)-min(salary) salary from employees group by job_id;
+
+6. Display job ID for jobs with average salary more than 10000.
+
+Ans->Select job_id,avg(salary) from employees group by job_id having avg(salary)>10000;
+
+7. Display years in which more than 10 employees joined.
+
+Ans->Select year(hire_date) from employees group by year(hire_date) having count(employee_id) > 10;
+
+8. Display departments in which more than five employees have commission percentage.
+
+Ans->Select department_id from employees where commission_pct is not null group by department_id having count(commission_pct)>5;
+
+9. Display department name and number of employees in the department.
+
+Ans->Select department_name,count(*) from employees group by department_id;
+
+10. Display employee ID for employees who did more than one job in the past.
+
+Ans->Select employee_id from job_history group by employee_id havong count(*)>1;
+

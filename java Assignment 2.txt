@@ -1,0 +1,74 @@
+Assignment->2
+
+import java.util.Scanner;
+public class Test {
+	public static void main(String []args) {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("enter details you want to store:");
+		int n=sc.nextInt();
+		int []id=new int [n];
+		String []name=new String[n];
+		float []salary=new float[n];
+		String[]desg=new String[n];
+	
+		for(int i=0;i<n;i++) {
+		System.out.println("enter id for employee");
+		id[i]=sc.nextInt();
+		
+		System.out.println("enter name for employee");
+		name[i]=sc.nextLine();
+		System.out.println();
+		
+		System.out.println("enter salary for employee");
+		salary[i]=sc.nextFloat();
+		
+		System.out.println("enter desg for employee");
+		desg[i]=sc.nextLine();
+		System.out.println();
+	    
+
+		}
+		for(int l=0;l<n;l++) {
+			double hra,da,pf;
+			hra=salary[l]*0.1;
+			da=salary[l]*0.07;
+		     pf=salary[l]*0.05;
+		     if(desg[l].equals("developer")) {
+		    	 salary[l]=(salary[l]+hra+da-pf)+(salary[l]*0.1);
+		    	 System.out.println("\n");
+		    	 System.out.println("details of employee");
+		    	 System.out.println("id="+id[l]);
+		    	 System.out.println("name="+name[l]);
+		    	 System.out.println("salary="+salary[l]);
+		    	 System.out.println("desg="+desg[l]);
+		    	 
+
+		    	 }
+		     else if (desg[l].equals("manager")) {
+		    	 salary[l]=(salary[l]+hra+da-pf)+(salary[l]*0.15);
+		    	 System.out.println("\n");
+		    	 System.out.println("details of employee");
+		    	 System.out.println("id="+id[l]);
+		    	 System.out.println("name="+name[l]);
+		    	 System.out.println("salary="+salary[l]);
+		    	 System.out.println("desg="+desg[l]);
+		    	 
+		    	 
+		     }
+		     else {
+		    	 salary[l]=(salary[l]+hra+da-pf)+(salary[l]*0.05);
+		    	 System.out.println("\n");
+		    	 System.out.println("details of employee");
+		    	 System.out.println("id="+id[l]);
+		    	 System.out.println("name="+name[l]);
+		    	 System.out.println("salary="+salary[l]);
+		    	 System.out.println("desg="+desg[l]);
+		    	 
+		     }
+		
+			
+		}
+	}
+	
+
+}

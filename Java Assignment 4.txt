@@ -1,0 +1,132 @@
+import java.util.Scanner;
+  class Employee
+{
+	
+    int id;
+    String name;
+    float salary;
+    Scanner sc=new Scanner(System.in);
+	Address add = new Address();
+	void read () {
+		    System.out.println("enter id for employee");
+		 	id=sc.nextInt();
+			sc.nextLine();
+			
+			System.out.println("enter name for employee");
+			 name=sc.nextLine();
+			
+			System.out.println("enter salary for employee");
+			salary=sc.nextFloat();
+			
+		}
+
+	
+	void calsalary() {
+			double hra,da,pf;
+			hra=salary*0.1;
+			da=salary*0.07;
+		     pf=salary*0.05;
+		     salary=salary+hra+da-pf;
+		
+	}
+	void display() {
+
+		 System.out.println("\n " );
+		 System.out.println("id="+id);
+		 System.out.println("name="+name);
+		 System.out.println("salary="+salary);
+		
+	}
+}
+
+class Manager extends Employe{
+	int numberofemployee;
+	void readmgr(){
+		System.out.println(" Enter number of employee");
+		numberofemployee=sc.nextInt();
+		add.readadd();
+		
+	}
+	void dismgr() {
+
+			 System.out.println("number of employee="+numberofemployee);
+			 add.disadd();
+			
+		}
+
+	}
+	class Programmer extends Employe{
+		String projname;
+		void readprog(){
+			sc.nextLine();
+			System.out.println("enter name of project");
+			projname=sc.nextLine();
+			add.readadd();
+			
+		}
+		void disprog() {
+				 System.out.println("project="+projname);
+				 add.readadd();
+				
+			}
+
+			
+		}
+	class Address{
+		int pin;
+		String state;
+		String city;
+		Scanner obj=new Scanner(System.in);
+		void readadd() {
+		  System.out.println("enter city");
+		 	city=obj.nextLine();
+			
+			System.out.println("enter state");
+			 state=obj.nextLine();
+			
+			System.out.println("enter pincode");
+			pin=obj.nextInt();
+		}
+			
+	void disadd() {
+		 System.out.println("city="+city);
+		 System.out.println("state="+state);
+		 System.out.println("pin="+pin);
+		
+	}
+	}
+
+			
+   class EmployeeTest{
+		 public static void main(String []args) {
+			 
+			System.out.println("manager details");
+			Manager mgr=new Manager();
+			mgr.read();
+			mgr.readmgr();
+			
+
+			System.out.println("programmer details");
+		
+			Programmer prg=new Programmer();
+			prg.read();
+			prg.readprog();
+			
+			mgr.calsalary();
+			prg.calsalary();
+			
+			mgr.display();
+			mgr.dismgr();
+			
+			prg.display();
+			prg.disprog();
+			
+		    Address add=new Address();
+		    add.readadd();
+		    add.disadd();
+			
+			
+			
+		}
+			
+   }

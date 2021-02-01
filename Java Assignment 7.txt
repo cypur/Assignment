@@ -1,0 +1,34 @@
+import java.util.*;
+public class Compare {
+	public static void main(String[] args) {
+		int n;
+		String temp;
+		Scanner sc=new Scanner(System.in);
+		System.out.println("enter number of String");
+		n=sc.nextInt();
+		String str[]=new String[n];
+                Scanner ab=new Scanner(System.in);
+		System.out.println("enter Name");
+		for(int i=0;i<n;i++) {
+			str[i]=ab.nextLine();
+			
+		}
+		
+		for(int i=0;i<n;i++) {
+			for(int j=i+1;j<n;j++) {
+				if(str[i].compareTo(str[j])>0) {
+					temp=str[i];
+					str[i]=str[j];
+					str[j]=temp;
+				}
+				
+			}
+		}
+                System.out.println("The names are:");
+		for(int i=0;i<n;i++) {
+			System.out.println(str[i]+" ");
+		}
+
+	}
+
+}

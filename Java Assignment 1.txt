@@ -1,0 +1,105 @@
+import java.util.*;
+
+class Examination {
+ 
+	public static void main (String[] args) {
+	        int flag;
+		int total=0;
+		int chioce;
+		Scanner sc=new Scanner(System.in);
+		do {
+			System.out.println("welcome to online exam");
+			System.out.println("Enter your Choice");
+			int Choice = sc.nextInt();
+			
+			switch (Choice) {
+			case 1:
+				System.out.println("welcome to english exam");
+				System.out.println("Choose the past-tense verb:");
+				System.out.println("ans:1.watch 2.watches 3.watching 4.watched");
+				int Choice1 = sc.nextInt();
+				if(Choice1 == 4) {
+					total = total+10;
+				}
+				
+				System.out.println("Choose the future-tense verb.:");
+				System.out.println("ans:1.play 2.played 3.will play 4.plays");
+				int Choice2 = sc.nextInt();
+				if(Choice2 == 3) {
+					total = total+10;
+				}
+				System.out.println("How many Day are in a week:");
+				System.out.println("ans:1.five 2.six 3.seven 4.eight");
+				int Choice3 = sc.nextInt();
+				if(Choice2 == 3) {
+					total = total+10;
+				}
+				
+				break;
+			case 2:
+					System.out.println("welcome to maths exam");
+					System.out.println("find 7+7:");
+					System.out.println("ans:1.14 2.15 3.16");
+					int ChoiceT1 = sc.nextInt();
+					if(ChoiceT1 == 1) {
+						total = total+10;
+					}
+					
+					System.out.println(" find 12-7:");
+					System.out.println("ans:1.4 2.7 3.5");
+					int ChoiceT2 = sc.nextInt();
+					if(ChoiceT2 == 3) {
+						total = total+10;
+					}
+					System.out.println("who invented zero first in the world:");
+					System.out.println("ans:1.varah 2.mayan 3.aryabatta");
+					int ChoiceT3 = sc.nextInt();
+					if(ChoiceT3 == 3) {
+						total = total+10;
+					}
+					
+					break;
+			
+			case 3:
+					System.out.println("welcome to Gk exam");
+					System.out.println("who is chief minister of West Bengal?");
+					System.out.println("ans:1.Mamta Banerjee 2.pranab Mukherjee 3.Dilip Ghosh");
+					int ChoiceTest1 = sc.nextInt();
+					if(ChoiceTest1 == 1) {
+						total = total+10;
+					}
+					
+					System.out.println("who is the president of India?");
+					System.out.println("ans:1.Narendra Modi 2.Ramnath Kovind 3.Susma Swaraj");
+					int ChoiceTest2 = sc.nextInt();
+					if(ChoiceTest2 == 2) {
+						total = total+10;
+					}
+					System.out.println("How many team are present in IPL");
+					System.out.println("ans:1.six 2.ten 3.eight");
+					int ChoiceTest3 = sc.nextInt();
+					if(ChoiceTest3 == 3) {
+						total = total+10;
+					}
+			  break;
+
+			default:
+				System.out.println("you entered wrong choice");
+				break;
+			}
+			System.out.println("Do you want to cotinue");
+			flag = sc.nextInt();
+
+		}while(flag !=0);
+		 int result=total;	
+		 if(result>70) {
+		 result=result+10;
+		}
+		else if(result==90) {
+			
+			System.out.println("you are selected");
+		}
+		else
+			System.out.println("try again");
+	}
+}

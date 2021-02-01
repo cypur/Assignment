@@ -1,0 +1,178 @@
+12/01/2021
+
+DML Operation 
+
+1. Change salary of employee 115 to 8000 if the existing salary is less than 6000.
+
+Ans->UPDATE EMPLOYEES SET SALARY = 8000 WHERE EMPLOYEE_ID = 115 AND SALARY < 6000;
+
+2. Insert a new employee into employees with all the required details.
+
+Ans->INSERT INTO EMPLOYEES  (EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, HIRE_DATE,JOB_ID, SALARY, DEPARTMENT_ID) VALUES (208, 'ABHI', 'SNYDER','ANGELA','215 253 4737', SYSDATE, 'SA_MAN', 12000, 80);
+
+3. Delete department 20.
+
+Ans->DELETE FROM DEPARTMENTS WHERE DEPARTMENT_ID=20;
+
+4. Change job ID of employee 110 to IT_PROG if the employee belongs to department 10 and the existing job ID does not start with IT.
+
+Ans->UPDATE EMPLOYEES SET JOB_ID= 'IT_PROG' WHERE EMPLOYEE_ID=110 AND DEPARTMENT_ID=10 AND NOT JOB_ID LIKE 'IT%';
+
+5. Insert a row into departments table with manager ID 120 and location ID in any location ID for city Tokyo.
+
+Ans->INSERT INTO DEPARTMENTS (150,'SPORTS',120,1200);
+
+6. Display job title, employee ID, number of days between ending date and starting date for all jobs in department 30 from job history.
+
+Ans->SELECT EMPLOYEE_ID, JOB_TITLE, END_DATE-START_DATE DAYS FROM JOB_HISTORY NATURAL JOIN JOBS WHERE DEPARTMENT_ID=30;
+
+		
+DDL Assignments  with Constraints 
+		
+Table ---> Customer 
+	custId, firstName,lastName,age,city, mobileNumber, dob
+		Add the Constraints 
+		custId is Primary Key 
+		firstName not null
+		age must be greater than 21
+		mobile must be unique
+
+mysql> create table customer(custid int primary key,first_name varchar(20) not null,last_name varchar(20),age int check(age>21),city varchar(20),mobile_no int unique,dob date);
+Query OK, 0 rows affected (1.99 sec)
+
+mysql> desc customer;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| custid     | int         | NO   | PRI | NULL    |       |
+| first_name | varchar(20) | NO   |     | NULL    |       |
+| last_name  | varchar(20) | YES  |     | NULL    |       |
+| age        | int         | YES  |     | NULL    |       |
+| city       | varchar(20) | YES  |     | NULL    |       |
+| mobile_no  | int         | YES  | UNI | NULL    |       |
+| dob        | date        | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+ 
+Table ----> Branch 
+		branchId, branchName, city 
+		Add the Constraints 
+		branchId is Primary Key 
+		branchName not null
+		city not null
+
+mysql> create table branch(branch_id int primary key,branch_name varchar(20) not null,city varchar(20) not null);
+Query OK, 0 rows affected (0.82 sec)
+
+mysql> desc branch;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| branch_id   | int         | NO   | PRI | NULL    |       |
+| branch_name | varchar(20) | NO   |     | NULL    |       |
+| city        | varchar(20) | NO   |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.12 sec)
+
+	
+Table -----> Account 
+		accountNumber, openingBalance, typeOfAccount, status,BankId,CustId
+		Add the Constraints 
+		accountNumber is primary key 
+		openingBalance must be greater than 5000
+		typeOfAccount must be saving/current
+		BankId is foreign key refer to BranchId(Primary key) Branch table 
+		CustId is foreign key refer to Customer(Primary key) Customer table 
+mysql> create table account(transactionId int primary key,transactionDate date,MediumOfTransaction varchar(20),transactionAmount int);
+Query OK, 0 rows affected (0.90 sec)
+mysql> desc account;
++---------------------+-------------+------+-----+---------+-------+
+| Field               | Type        | Null | Key | Default | Extra |
++---------------------+-------------+------+-----+---------+-------+
+| transactionId       | int         | NO   | PRI | NULL    |       |
+| transactionDate     | date        | YES  |     | NULL    |       |
+| MediumOfTransaction | varchar(20) | YES  |     | NULL    |       |
+| transactionAmount   | int         | YES  |     | NULL    |       |
++---------------------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+	
+Table ----> Transaction 
+		transactionId, transactionDate, MediumOfTransaction, TransactionAmount 
+		Add the Constraints 
+		transactionId is primary key 
+
+mysql> create table transaction(transactionId int primary key,transactionDate date,MediumOfTransaction varchar(20), TransactionalAmount int);
+Query OK, 0 rows affected (0.60 sec)
+
+mysql> desc transaction;
++---------------------+-------------+------+-----+---------+-------+
+| Field               | Type        | Null | Key | Default | Extra |
++---------------------+-------------+------+-----+---------+-------+
+| transactionId       | int         | NO   | PRI | NULL    |       |
+| transactionDate     | date        | YES  |     | NULL    |       |
+| MediumOfTransaction | varchar(20) | YES  |     | NULL    |       |
+| TransactionalAmount | int         | YES  |     | NULL    |       |
++---------------------+-------------+------+-----+---------+-------+
+4 rows in set (0.11 sec)
+
+		
+Table ----> Loan 
+		LoanId, loanAmount, customerId and bankdId 
+		Add the Constraints 
+		loadId is primary key 
+		loanAmount must be +ve 
+		BankId is foreign key refer to BranchId(Primary key) Branch table
+
+
+mysql> create table loan(loanId int primary key,loanAmount int check(loanAmount > 0),customerId int,bankId int,foreign key(bankId) references branch(branch_id));
+Query OK, 0 rows affected (0.56 sec)
+
+mysql> desc loan;
++------------+------+------+-----+---------+-------+
+| Field      | Type | Null | Key | Default | Extra |
++------------+------+------+-----+---------+-------+
+| loanId     | int  | NO   | PRI | NULL    |       |
+| loanAmount | int  | YES  |     | NULL    |       |
+| customerId | int  | YES  |     | NULL    |       |
+| bankId     | int  | YES  | MUL | NULL    |       |
++------------+------+------+-----+---------+-------+
+4 rows in set (0.09 sec)
+
+
+
+
+
+Sub Query 
+
+1. Display details of departments managed by ‘John’.
+
+Ans->SELECT * FROM DEPARTMENTS WHERE MANAGER_ID IN (SELECT EMPLOYEE_ID FROM EMPLOYEES WHERE FIRST_NAME='JOHN');
+
+2. Display employees who did not do any job in the past.
+
+Ans->SELECT * FROM EMPLOYEES WHERE EMPLOYEE_ID NOT IN (SELECT EMPLOYEE_ID FROM JOB_HISTORY);
+
+3. Display job title and average salary for employees who did a job in the past.
+
+Ans->SELECT JOB_TITLE, AVG(SALARY) FROM JOBS NATURAL JOIN EMPLOYEES GROUP BY JOB_TITLE WHERE EMPLOYEE_ID IN (SELECT EMPLOYEE_ID FROM JOB_HISTORY);
+
+4. Display country name, city, and number of departments where department has more than 5 employees.
+
+Ans->SELECT COUNTRY_NAME, CITY, COUNT(DEPARTMENT_ID)FROM COUNTRIES JOIN LOCATIONS USING (COUNTRY_ID) JOIN DEPARTMENTS USING (LOCATION_ID) WHERE DEPARTMENT_ID IN (SELECT DEPARTMENT_ID FROM EMPLOYEES GROUP BY DEPARTMENT_ID HAVING COUNT(DEPARTMENT_ID)>5) GROUP BY COUNTRY_NAME, CITY;
+
+5. Display details of manager who manages more than 5 employees.
+
+Ans->SELECT FIRST_NAME FROM EMPLOYEES WHERE EMPLOYEE_ID IN (SELECT MANAGER_ID FROM EMPLOYEES GROUP BY MANAGER_ID HAVING COUNT(*)>5);
+
+6. Display details of current job for employees who worked as IT Programmers in the past.
+
+Ans->SELECT * FROM JOBS WHERE JOB_ID IN (SELECT JOB_ID FROM EMPLOYEES WHERE EMPLOYEE_ID IN (SELECT EMPLOYEE_ID FROM JOB_HISTORY WHERE JOB_ID='IT_PROG'));
+
+7. Display the details of employees drawing the highest salary in the department.
+
+Ans->SELECT * FROM EMPLOYEES WHERE SALARY = (SELECT MAX(SALARY) FROM EMPLOYEES WHERE DEPARTMENT_ID = DEPARTMENT_ID);
+
+8. Display third highest salary of all employees
+
+Ans->SELECT MAX(SALARY) FROM   EMPLOYEES WHERE  SALARY < (SELECT MAX(SALARY) FROM   EMPLOYEES WHERE SALARY NOT IN(SELECT MAX(SALARY) FROM   EMPLOYEES));
