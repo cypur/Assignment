@@ -1,11 +1,11 @@
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.*;
-public class ByteWiseFileOpeation {
+public class ByteWiseFileOperation {
 
 	public static void main(String[] args)throws IOException {
 
-		File file =new File("C:\\Users\\abhis\\Documents\\java programs\\abc.txt");
+		File file =new File("C:\\Users\\abhis\\OneDrive\\Desktop\\My Assignment\\abc.txt");
 		FileInputStream fileStream = new FileInputStream(file);
 		InputStreamReader input = new InputStreamReader(fileStream);
 		BufferedReader reader=new BufferedReader(input);
