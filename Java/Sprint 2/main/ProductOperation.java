@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Collection;
 import java.util.Scanner;
-public class Demo {
+public class ProductOperation {
 
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
