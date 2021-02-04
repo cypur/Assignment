@@ -1,0 +1,97 @@
+package com;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.DriverManager;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class Demo
+ */
+public class Demo extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Demo() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		System.out.println("Welcome to servlet");
+		//PrintWriter pw=response.getWriter();
+		//pw.println("Welcome to servlet program");
+		String user=request.getParameter("username");
+		String pass=request.getParameter("password");
+		PrintWriter pw=response.getWriter();
+		try {
+			int count=0;
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "Abhishek@02");
+			PreparedStatement pstmt =con.prepareStatement("select username,password from customer1");
+			//Statement st =con.createStatement();
+			ResultSet rs=pstmt.executeQuery();
+			while(rs.next())
+			{
+				String pass1=rs.getString("password");
+				String user1=rs.getString("username");
+				if((pass.equals(pass1) && (user.equals(user1))))
+				{
+					pw.println("login Successful");
+					count=1;
+					break;	
+				}
+				else
+				{
+					count=0;
+				}
+			}
+			if(count==0)
+			{
+				pw.println("login failed");
+			}
+			
+		} catch(Exception e) {
+			System.err.println(e.toString());
+		}
+		
+		
+		
+		
+	}
+
+}
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="hi">
+<label for="">UserName</label>
+<input type="text" name="username"><br/>
+<label for="">password</label>
+<input type="password" name="password"><br/>
+<input type="submit" value="submit"/>
+</form>
+</body>
+</html>
